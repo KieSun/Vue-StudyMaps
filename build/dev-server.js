@@ -28,7 +28,6 @@ var compiler = webpack(webpackConfig)
 
 app.get('/raywenderlich', function (req, res, next) {
   let page = req.page
-  console.log(req)
   superagent.get(`https://www.raywenderlich.com/page/1`)
     .end(function (err, sres) {
       if (err) {
