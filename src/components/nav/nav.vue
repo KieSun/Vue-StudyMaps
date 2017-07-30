@@ -5,7 +5,8 @@
         v-for="item in options" 
         :key="item.value" 
         :label="item.label" 
-        :value="item.value">
+        :value="item.value"
+        >
       </el-option>
     </el-select>
     <i class="el-icon-plus" @click="addWebsite"></i>
@@ -13,7 +14,6 @@
 </template>
 
 <script>
-import { getRaywenderlichData } from '../../api/api'
 export default {
   data() {
     return {
@@ -30,16 +30,9 @@ export default {
       selected: 'raywenderlich'
     }
   },
-  created() {
-    this.getData()
-  },
   methods: {
-    async getData() {
-      let data = await getRaywenderlichData(2)
-      console.log(data)
-    },
     selectChange() {
-      this.$router.push(this.selected)
+      this.$router.push(`/${this.selected}`)
     },
     addWebsite() {
       window.open('https://github.com/KieSun/vue-studyMaps')
