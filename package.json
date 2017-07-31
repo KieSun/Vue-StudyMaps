@@ -15,6 +15,7 @@
     "cheerio": "^1.0.0-rc.2",
     "element-ui": "^1.4.1",
     "superagent": "^3.5.2",
+    "superagent-cache": "^2.0.0",
     "vue": "^2.4.2",
     "vue-lazyload": "^1.0.6",
     "vue-router": "^2.7.0"

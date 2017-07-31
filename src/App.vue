@@ -3,7 +3,6 @@
     <header>
       <navigation></navigation>
     </header>
-    <pageBreak></pageBreak>
     <transition name="fade" mode="out-in">
         <router-view></router-view>
     </transition>
@@ -12,12 +11,10 @@
 
 <script>
 import Navigation from 'components/nav/nav'
-import PageBreak from 'components/pageBreak/pageBreak'
 export default {
   name: 'app',
   components: {
-    Navigation,
-    PageBreak
+    Navigation
   }
 }
 </script>
@@ -28,11 +25,6 @@ header {
   width: 100%;
   height: 70px;
   background: #20A0FF;
-}
-
-.pageBreak {
-  width: 100%;
-  height: 60px;
 }
 
 .fade-enter-active, .fade-leave-active {

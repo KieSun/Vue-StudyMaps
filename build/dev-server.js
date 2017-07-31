@@ -13,6 +13,8 @@ var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
 var cheerio = require('cheerio')
 var superagent = require('superagent')
+var defaults = {expiration: 3600}
+require('superagent-cache')(superagent, defaults)
 
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
@@ -27,8 +29,8 @@ var compiler = webpack(webpackConfig)
 
 
 app.get('/raywenderlich', function (req, res, next) {
-  let page = req.page
-  superagent.get(`https://www.raywenderlich.com/page/1`)
+  let page = req.query.page
+  superagent.get(`https://www.raywenderlich.com/page/${page}`)
     .end(function (err, sres) {
       if (err) {
         return next(err)

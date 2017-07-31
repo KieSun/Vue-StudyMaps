@@ -13,6 +13,7 @@
 
 <script>
 export default {
+  props: ['type', 'isLoad'],
   data () {
     return {
       pageIndex: 1,
@@ -21,13 +22,25 @@ export default {
   },
   methods: {
     reducePage() {
+      if (this.isLoad) {
+        return
+      }
       if (this.pageIndex === 1) {
         return
       }
       this.pageIndex -= 1
+      this.routerPush()
     },
     addPage() {
+      if (this.isLoad) {
+        return
+      }
       this.pageIndex += 1
+      this.routerPush()
+    },
+    routerPush() {
+      this.$router.push(`/${this.type}/${this.pageIndex}`)
+      this.$emit('changePage', this.pageIndex)
     }
   },
   watch: {
