@@ -1,13 +1,11 @@
 <template>
   <div class="wrapper">
     <pageBreak :type="type" :isLoad="isLoad" @changePage="changePage"></pageBreak>
-    <transition :name="transition">
       <div class="content" :key="page">
         <ul>
           <item v-for="(item, index) in list" :key="index" :item="item"></item>
         </ul>
       </div>
-    </transition>
   </div>
 </template>
 
@@ -21,7 +19,6 @@ export default {
       list: [],
       type: 'raywenderlich',
       isLoad: false,
-      transition: 'right',
       page: 1
     }
   },
@@ -34,6 +31,7 @@ export default {
         return
       }
       this.isLoad = true
+      console.log(page)
       this.list = await getRaywenderlichData(page)
       this.isLoad = false
     },
@@ -41,7 +39,6 @@ export default {
       window.open(href)
     },
     changePage(page) {
-      page > this.page ? this.transition = 'left' : this.transition = 'right'
       this.page = page
       this.getData(page)
     }
@@ -65,17 +62,6 @@ export default {
   }
 }
 
-.left-enter, .right-leave-to {
-  opacity: 0;
-  transition:  .3s;
-  transform: translate(50px, 0);
-}
-
-.left-leave-to, .right-enter {
-  opacity: 0;
-  transition:  .3s;
-  transform: translate(-50px, 0);
-}
 </style>
 
 

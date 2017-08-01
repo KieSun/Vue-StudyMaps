@@ -13,7 +13,7 @@ var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
 var cheerio = require('cheerio')
 var superagent = require('superagent')
-var defaults = {expiration: 3600}
+var defaults = {cacheWhenEmpty: false, expiration: 3600}
 require('superagent-cache')(superagent, defaults)
 
 // default port where dev server listens for incoming traffic
@@ -27,9 +27,16 @@ var proxyTable = config.dev.proxyTable
 var app = express()
 var compiler = webpack(webpackConfig)
 
+for (var index = 1; index < 11; index++) {
+  superagent.get(`https://www.raywenderlich.com/page/${index}`)
+    .end(function (err, sres) {
+    });
+}
+
 
 app.get('/raywenderlich', function (req, res, next) {
   let page = req.query.page
+  console.log(page)
   superagent.get(`https://www.raywenderlich.com/page/${page}`)
     .end(function (err, sres) {
       if (err) {
@@ -63,7 +70,9 @@ var hotMiddleware = require('webpack-hot-middleware')(compiler, {
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {
   compilation.plugin('html-webpack-plugin-after-emit', function (data, cb) {
-    hotMiddleware.publish({ action: 'reload' })
+    hotMiddleware.publish({
+      action: 'reload'
+    })
     cb()
   })
 })
@@ -72,7 +81,9 @@ compiler.plugin('compilation', function (compilation) {
 Object.keys(proxyTable).forEach(function (context) {
   var options = proxyTable[context]
   if (typeof options === 'string') {
-    options = { target: options }
+    options = {
+      target: options
+    }
   }
   app.use(proxyMiddleware(options.filter || context, options))
 })

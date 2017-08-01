@@ -14,7 +14,7 @@
 <script>
 export default {
   props: ['type', 'isLoad'],
-  data () {
+  data() {
     return {
       pageIndex: 1,
       disabled: true
@@ -56,36 +56,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .page-wrapper {
-    width: 100%;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 1px 2px rgba(0,0,0,.1);
-    background: #fff;
-    font-size: 0;
-    .button-group {
-      .left {
-        margin-right: 20px;
-        color: #fff;
-      }
-      .right {
-        margin-left: 20px;
-        color: #fff;
-      }
-      .page {
-        vertical-align: middle;
-        font-size: 15px;
-        line-height: 36px;
-      }
-      .disable {
+.page-wrapper {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+  background: #fff;
+  font-size: 0;
+  .button-group {
+    .left {
+      margin-right: 20px;
+      color: #fff;
+    }
+    .right {
+      margin-left: 20px;
+      color: #fff;
+    }
+    .page {
+      vertical-align: middle;
+      font-size: 15px;
+      line-height: 36px;
+    }
+    .disable {
+      color: #ccc;
+      &.arrow-left {
         color: #ccc;
-        &.arrow-left {
-          color: #ccc;
-        }
       }
     }
   }
+}
 </style>
 
