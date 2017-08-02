@@ -51,6 +51,9 @@ export default {
         this.disabled = false
       }
     }
+  },
+  beforeRouteUpdate (to, from, next) {
+    console.log(to, from)
   }
 }
 </script>

@@ -14,16 +14,17 @@ import { getRaywenderlichData } from '../api/api'
 import PageBreak from 'components/pageBreak/pageBreak'
 import Item from 'components/item/item'
 export default {
+  props: ['type'],
   data() {
     return {
       list: [],
-      type: 'raywenderlich',
       isLoad: false,
       page: 1
     }
   },
   created() {
     this.getData()
+    console.log(this.type)
   },
   methods: {
     async getData(page = 1) {
@@ -31,7 +32,6 @@ export default {
         return
       }
       this.isLoad = true
-      console.log(page)
       this.list = await getRaywenderlichData(page)
       this.isLoad = false
     },
