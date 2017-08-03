@@ -1,11 +1,11 @@
 <template>
   <div class="wrapper">
     <pageBreak :type="type" :isLoad="isLoad" @changePage="changePage"></pageBreak>
-      <div class="content" :key="page">
-        <ul>
-          <item v-for="(item, index) in list" :key="index" :item="item"></item>
-        </ul>
-      </div>
+    <div class="content" :key="page">
+      <ul>
+        <item v-for="(item, index) in list" :key="index" :item="item"></item>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -30,6 +30,10 @@ export default {
       if (this.isLoad) {
         return
       }
+      if (this.$route.params.page) {
+        page = parseInt(this.$route.params.page)
+      }
+      this.$store.state.pageIndex = page
       this.isLoad = true
       this.list = await getRaywenderlichData(this.type, page)
       this.isLoad = false
@@ -40,27 +44,11 @@ export default {
     changePage(page) {
       this.page = page
       this.getData(page)
-    },
-    routeChange() {
-      if (this.$route.params.page) {
-        this.$store.state.pageIndex = parseInt(this.$route.params.page)
-      } else {
-        this.$store.state.pageIndex = 1
-      }
-      let type = this.$route.path.match(/^\/[a-zA-Z]+/)
-      if (type) {
-        this.$store.state.type = type[0].slice(1, -1)
-        console.log(type[0].slice(1, -1))
-      }
-      this.getData(this.$store.state.pageIndex)
     }
   },
   components: {
     PageBreak,
     Item
-  },
-  watch: {
-    '$route': 'routeChange'
   }
 }
 </script>
@@ -76,7 +64,6 @@ export default {
     background: #fff;
   }
 }
-
 </style>
 
 

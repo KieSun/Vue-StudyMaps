@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '../store'
 
 Vue.use(Router)
 
 const Lists = type => () =>
   import('../page/Lists.js').then(m => m.default(type))
 
-export default new Router({
+let router = new Router({
   routes: [{
     path: '/',
     redirect: '/raywenderlich'
@@ -27,3 +28,11 @@ export default new Router({
     }
   }
 })
+
+router.beforeEach((to, from, next) => {
+  console.log(to)
+  console.log(store.state.type)
+  next()
+})
+
+export default router

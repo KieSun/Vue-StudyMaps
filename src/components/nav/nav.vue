@@ -25,18 +25,11 @@ export default {
       selected: 'raywenderlich'
     }
   },
-  created() {
-    let type = this.$route.path.match(/^\/[a-zA-Z]+/)
-    if (type !== this.selected) {
-      this.selected = type
-    }
-  },
   methods: {
     selectChange() {
       this.$router.push(`/${this.selected}`)
       this.$store.state.type = this.selected
       this.$store.state.pageIndex = 1
-      window.localStorage.setItem('pageIndex', 1)
     },
     addWebsite() {
       window.open('https://github.com/KieSun/vue-studyMaps')

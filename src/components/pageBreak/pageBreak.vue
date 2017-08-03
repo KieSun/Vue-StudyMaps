@@ -12,32 +12,16 @@
 </template>
 
 <script>
-// import { mapMutations, mapGetters } from 'vuex'
 export default {
   props: ['type', 'isLoad'],
   data() {
     return {
-      disabled: true
-    }
-  },
-  computed: {
-    pageIndex: {
-      get: function() {
-        return this.$store.state.pageIndex
-      },
-      set: function(newValue) {
-        this.$store.state.pageIndex = newValue
-        window.localStorage.setItem('pageIndex', newValue)
-      }
+      disabled: true,
+      pageIndex: 1
     }
   },
   created() {
-    let page = parseInt(window.localStorage.getItem('pageIndex'))
-    if (page) {
-      this.pageIndex = page
-    } else {
-      this.pageIndex = 1
-    }
+    this.pageIndex = parseInt(this.$route.params.page) || 1
   },
   methods: {
     reducePage() {
