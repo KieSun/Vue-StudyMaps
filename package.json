@@ -18,6 +18,7 @@
     "superagent-cache": "^2.0.0",
     "vue": "^2.4.2",
     "vue-lazyload": "^1.0.6",
+    "vuex": "^2.3.1",
     "vue-router": "^2.7.0",
     "better-scroll": "^0.4.0"
   },

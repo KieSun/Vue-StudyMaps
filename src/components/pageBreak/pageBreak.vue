@@ -12,12 +12,31 @@
 </template>
 
 <script>
+// import { mapMutations, mapGetters } from 'vuex'
 export default {
   props: ['type', 'isLoad'],
   data() {
     return {
-      pageIndex: 1,
       disabled: true
+    }
+  },
+  computed: {
+    pageIndex: {
+      get: function() {
+        return this.$store.state.pageIndex
+      },
+      set: function(newValue) {
+        this.$store.state.pageIndex = newValue
+        window.localStorage.setItem('pageIndex', newValue)
+      }
+    }
+  },
+  created() {
+    let page = parseInt(window.localStorage.getItem('pageIndex'))
+    if (page) {
+      this.pageIndex = page
+    } else {
+      this.pageIndex = 1
     }
   },
   methods: {
@@ -29,14 +48,12 @@ export default {
         return
       }
       this.pageIndex -= 1
-      this.routerPush()
     },
     addPage() {
       if (this.isLoad) {
         return
       }
       this.pageIndex += 1
-      this.routerPush()
     },
     routerPush() {
       this.$router.push(`/${this.type}/${this.pageIndex}`)
@@ -50,10 +67,8 @@ export default {
       } else {
         this.disabled = false
       }
+      this.routerPush()
     }
-  },
-  beforeRouteUpdate (to, from, next) {
-    console.log(to, from)
   }
 }
 </script>

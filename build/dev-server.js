@@ -13,7 +13,7 @@ var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
 var cheerio = require('cheerio')
 var superagent = require('superagent')
-var defaults = {cacheWhenEmpty: false, expiration: 3600}
+var defaults = {expiration: 3600}
 require('superagent-cache')(superagent, defaults)
 
 // default port where dev server listens for incoming traffic
@@ -32,6 +32,36 @@ for (var index = 1; index < 11; index++) {
     .end(function (err, sres) {
     });
 }
+
+for (var index = 1; index < 11; index++) {
+  superagent.get(`https://csstricks.com/page/${index}`)
+    .end(function (err, sres) {
+    });
+}
+
+app.get('/csstricks', function (req, res, next) {
+  let page = req.query.page
+  console.log(page)
+  superagent.get(`https://css-tricks.com/page/${page}`)
+    .end(function (err, sres) {
+      if (err) {
+        return next(err)
+      }
+      var $ = cheerio.load(sres.text)
+      var items = []
+      $('.content-and-tags').each(function (idx, element) {
+        var $element = $(element)
+        items.push({
+          title: $element.find('h2>.read-article').text().trim(),
+          href: $element.find('h2>.read-article').attr('href'),
+          author: $element.find('.p-author').text().trim(),
+          date: $element.find('.byline>time').text().trim()
+        })
+      })
+      
+      res.send(items)
+    });
+});
 
 
 app.get('/raywenderlich', function (req, res, next) {
@@ -53,7 +83,6 @@ app.get('/raywenderlich', function (req, res, next) {
           date: $element.find('.author-post-date').text()
         })
       })
-
       res.send(items)
     });
 });

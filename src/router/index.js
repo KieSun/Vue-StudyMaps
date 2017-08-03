@@ -16,8 +16,8 @@ export default new Router({
     component: Lists('raywenderlich')
   },
   {
-    path: '/css-tricks/:page(\\d+)?',
-    component: Lists('css-tricks')
+    path: '/csstricks/:page(\\d+)?',
+    component: Lists('csstricks')
   }
   ],
   scrollBehavior(to, from, savedPosition) {
