@@ -13,6 +13,7 @@ var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
 var cheerio = require('cheerio')
 var superagent = require('superagent')
+var axios = require('axios')
 var defaults = {expiration: 3600}
 require('superagent-cache')(superagent, defaults)
 
@@ -45,6 +46,40 @@ for (let index = 1; index < 11; index++) {
     });
 }
 
+for (let index = 0; index < 10; index++) {
+  let page = index * 20
+  superagent.get(`https://zhuanlan.zhihu.com/api/columns/wxyyxc1992/posts?limit=20&offset=${index}`)
+    .end(function (err, sres) {
+    });
+}
+
+app.get('/api/wxyyxc1992', function (req, res, next) {
+  let page = parseInt(req.query.page - 1) * 20
+  axios.get(`https://zhuanlan.zhihu.com/api/columns/wxyyxc1992/posts?limit=20&offset=${page}`)
+    .then((response) => {
+      let items = []
+      let data = {
+        items: items,
+        hasMore: true
+      }
+      if (response.data.length < 20) {
+        data.hasMore = false
+      }
+      
+      response.data.forEach((ele) => {
+        items.push({
+          title: ele.title,
+          href: 'https://zhuanlan.zhihu.com' + ele.href,
+          author: ele.author.name,
+          date: ''
+        })
+      })
+      res.send(data)
+    }).catch((err) => {
+      console.log(err)
+    })
+});
+
 app.get('/api/zaoduke', function (req, res, next) {
   let page = req.query.page
   superagent.get(`https://toutiao.io/subjects/11907?f=new&page=${page}`)
@@ -54,6 +89,13 @@ app.get('/api/zaoduke', function (req, res, next) {
       }
       var $ = cheerio.load(sres.text)
       var items = []
+      var data = {
+        items: items,
+        hasMore: true
+      }
+      if ($('.post').length < 30) {
+        data.hasMore = false
+      }
       $('.post').each(function (idx, element) {
         var $element = $(element)
         var $author = $element.find('.meta').contents().filter(function () {
@@ -66,7 +108,7 @@ app.get('/api/zaoduke', function (req, res, next) {
         })
       })
       
-      res.send(items)
+      res.send(data)
     });
 });
 
@@ -79,6 +121,13 @@ app.get('/api/csstricks', function (req, res, next) {
       }
       var $ = cheerio.load(sres.text)
       var items = []
+      var data = {
+        items: items,
+        hasMore: true
+      }
+      if ($('.content-and-tags').length < 12) {
+        data.hasMore = false
+      }
       $('.content-and-tags').each(function (idx, element) {
         var $element = $(element)
         items.push({
@@ -89,7 +138,8 @@ app.get('/api/csstricks', function (req, res, next) {
         })
       })
       
-      res.send(items)
+      res.send(data
+      )
     });
 });
 
@@ -103,6 +153,13 @@ app.get('/api/raywenderlich', function (req, res, next) {
       }
       var $ = cheerio.load(sres.text)
       var items = []
+      var data = {
+        items: items,
+        hasMore: true
+      }
+      if ($('#content>article').length < 15) {
+        data.hasMore = false
+      }
       $('#content>article').each(function (idx, element) {
         var $element = $(element)
         items.push({
@@ -112,7 +169,7 @@ app.get('/api/raywenderlich', function (req, res, next) {
           date: $element.find('.author-post-date').text()
         })
       })
-      res.send(items)
+      res.send(data)
     });
 });
 

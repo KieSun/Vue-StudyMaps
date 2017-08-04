@@ -3,7 +3,7 @@
     <div class="button-group">
       <el-button class="left" :disabled="pageIndex===1" :class="{disable: disabled}" type="primary" icon="arrow-left" @click="reducePage">上一页</el-button>
       <span class="page">{{pageIndex}}</span>
-      <el-button class="right" type="primary" @click="addPage">下一页
+      <el-button class="right" :class="{disable: noMore}" type="primary" @click="addPage" :disabled="noMore" >下一页
         <i class="el-icon-arrow-right el-icon--right"></i>
       </el-button>
     </div>
@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  props: ['type', 'isLoad'],
+  props: ['type', 'isLoad', 'noMore'],
   data() {
     return {
       disabled: true,

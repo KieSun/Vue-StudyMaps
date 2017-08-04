@@ -1,7 +1,12 @@
 <template>
   <div class="wrapper">
     <progressBar ref="progress"></progressBar>
-    <pageBreak class="pageBreak" :type="type" :isLoad="isLoad" @changePage="changePage"></pageBreak>
+    <pageBreak class="pageBreak" 
+      :type="type" 
+      :isLoad="isLoad"
+      :noMore="noMore" 
+      @changePage="changePage">
+    </pageBreak>
     <div class="content" :key="page" v-show="list.length" ref="content">
       <ul>
         <item v-for="(item, index) in list" :key="index" :item="item"></item>
@@ -21,7 +26,8 @@ export default {
     return {
       list: [],
       isLoad: false,
-      page: 1
+      page: 1,
+      noMore: false
     }
   },
   mounted() {
@@ -35,7 +41,14 @@ export default {
       this.isLoad = true
       this.$refs.progress.start()
       window.document.scrollTop = 0
-      this.list = await getRaywenderlichData(this.type, page)
+      let data = await getRaywenderlichData(this.type, page)
+      console.log(data)
+      this.list = data.items
+      if (!data.hasMore) {
+        this.noMore = true
+      } else {
+        this.noMore = false
+      }
       this.isLoad = false
       this.$refs.progress.finish()
     },

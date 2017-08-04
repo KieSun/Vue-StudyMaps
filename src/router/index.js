@@ -9,7 +9,9 @@ const Lists = type => () =>
 
 let router = new Router({
   mode: 'history',
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({
+    y: 0
+  }),
   routes: [{
     path: '/',
     redirect: '/zaoduke'
@@ -25,6 +27,10 @@ let router = new Router({
   {
     path: '/zaoduke/:page(\\d+)?',
     component: Lists('zaoduke')
+  },
+  {
+    path: '/wxyyxc1992/:page(\\d+)?',
+    component: Lists('wxyyxc1992')
   }
   ]
 
@@ -32,7 +38,7 @@ let router = new Router({
 
 router.beforeEach((to, from, next) => {
   store.state.page = to.params.page || 1
-  store.state.type = to.path.match(/[a-zA-Z]+/)[0]
+  store.state.type = to.path.match(/[a-zA-Z0-9]+/)[0]
   next()
 })
 

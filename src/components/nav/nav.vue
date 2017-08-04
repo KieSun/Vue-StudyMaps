@@ -24,6 +24,10 @@ export default {
         {
           value: 'raywenderlich',
           label: 'Raywenderlich'
+        },
+        {
+          value: 'wxyyxc1992',
+          label: '某熊的全栈之路'
         }
       ],
       selected: 'zaoduke'

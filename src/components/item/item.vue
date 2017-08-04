@@ -21,7 +21,6 @@ export default {
 
 <style lang="scss" scoped>
 .item {
-  height: 85px;
   border-bottom: 1px solid #eee;
   font-size: 0;
   padding: 20px 40px;
