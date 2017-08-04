@@ -26,10 +26,6 @@ export default {
 <style lang="scss" scoped>
 @import './../static/css/app.css';
 
-body {
-  overflow-y: scroll;
-}
-
 header {
   width: 100%;
   height: 70px;

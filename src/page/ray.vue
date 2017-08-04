@@ -34,7 +34,7 @@ export default {
       }
       this.isLoad = true
       this.$refs.progress.start()
-      this.$refs.content.scrollTop = 0
+      window.document.scrollTop = 0
       this.list = await getRaywenderlichData(this.type, page)
       this.isLoad = false
       this.$refs.progress.finish()
@@ -59,7 +59,9 @@ export default {
 .wrapper {
   padding-top: 131px;
   .content {
+    transition: all .5s cubic-bezier(.55,0,.1,1);
     position: absolute;
+    overflow: hidden;
     width: 100%;
     margin: 30px 0;
   }

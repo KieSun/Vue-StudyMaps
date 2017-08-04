@@ -14,16 +14,16 @@ export default {
     return {
       options: [
         {
-          value: 'raywenderlich',
-          label: 'Raywenderlich'
+          value: 'zaoduke',
+          label: '前端早读课'
         },
         {
           value: 'csstricks',
           label: 'CssTricks'
         },
         {
-          value: 'zaoduke',
-          label: '前端早读课'
+          value: 'raywenderlich',
+          label: 'Raywenderlich'
         }
       ],
       selected: 'zaoduke'

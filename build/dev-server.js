@@ -45,7 +45,7 @@ for (let index = 1; index < 11; index++) {
     });
 }
 
-app.get('/zaoduke', function (req, res, next) {
+app.get('/api/zaoduke', function (req, res, next) {
   let page = req.query.page
   superagent.get(`https://toutiao.io/subjects/11907?f=new&page=${page}`)
     .end(function (err, sres) {
@@ -70,7 +70,7 @@ app.get('/zaoduke', function (req, res, next) {
     });
 });
 
-app.get('/csstricks', function (req, res, next) {
+app.get('/api/csstricks', function (req, res, next) {
   let page = req.query.page
   superagent.get(`https://css-tricks.com/page/${page}`)
     .end(function (err, sres) {
@@ -94,7 +94,7 @@ app.get('/csstricks', function (req, res, next) {
 });
 
 
-app.get('/raywenderlich', function (req, res, next) {
+app.get('/api/raywenderlich', function (req, res, next) {
   let page = req.query.page
   superagent.get(`https://www.raywenderlich.com/page/${page}`)
     .end(function (err, sres) {
@@ -115,6 +115,7 @@ app.get('/raywenderlich', function (req, res, next) {
       res.send(items)
     });
 });
+
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,

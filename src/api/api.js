@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export function getRaywenderlichData(type, page = 1) {
-  const url = '/' + type
+  const url = '/api/' + type
   return axios.get(url, {
     params: {
       page: page

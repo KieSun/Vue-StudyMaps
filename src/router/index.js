@@ -8,6 +8,8 @@ const Lists = type => () =>
   import('../page/Lists.js').then(m => m.default(type))
 
 let router = new Router({
+  mode: 'history',
+  scrollBehavior: () => ({ y: 0 }),
   routes: [{
     path: '/',
     redirect: '/zaoduke'
@@ -24,8 +26,8 @@ let router = new Router({
     path: '/zaoduke/:page(\\d+)?',
     component: Lists('zaoduke')
   }
-  ],
-  scrollBehavior: () => ({ y: 0 })
+  ]
+
 })
 
 router.beforeEach((to, from, next) => {
