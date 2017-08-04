@@ -27,21 +27,51 @@ var proxyTable = config.dev.proxyTable
 var app = express()
 var compiler = webpack(webpackConfig)
 
-for (var index = 1; index < 11; index++) {
+for (let index = 1; index < 11; index++) {
+  superagent.get(`https://toutiao.io/subjects/11907?f=new&page=${index}`)
+    .end(function (err, sres) {
+    });
+}
+
+for (let index = 1; index < 11; index++) {
   superagent.get(`https://www.raywenderlich.com/page/${index}`)
     .end(function (err, sres) {
     });
 }
 
-for (var index = 1; index < 11; index++) {
+for (let index = 1; index < 11; index++) {
   superagent.get(`https://csstricks.com/page/${index}`)
     .end(function (err, sres) {
     });
 }
 
+app.get('/zaoduke', function (req, res, next) {
+  let page = req.query.page
+  superagent.get(`https://toutiao.io/subjects/11907?f=new&page=${page}`)
+    .end(function (err, sres) {
+      if (err) {
+        return next(err)
+      }
+      var $ = cheerio.load(sres.text)
+      var items = []
+      $('.post').each(function (idx, element) {
+        var $element = $(element)
+        var $author = $element.find('.meta').contents().filter(function () {
+          return this.nodeType === 3;
+        });
+        items.push({
+          title: $element.find('.title>a').text().trim(),
+          href: 'https://toutiao.io' + $element.find('.title>a').attr('href'),
+          author: $author.text().trim()
+        })
+      })
+      
+      res.send(items)
+    });
+});
+
 app.get('/csstricks', function (req, res, next) {
   let page = req.query.page
-  console.log(page)
   superagent.get(`https://css-tricks.com/page/${page}`)
     .end(function (err, sres) {
       if (err) {
@@ -66,7 +96,6 @@ app.get('/csstricks', function (req, res, next) {
 
 app.get('/raywenderlich', function (req, res, next) {
   let page = req.query.page
-  console.log(page)
   superagent.get(`https://www.raywenderlich.com/page/${page}`)
     .end(function (err, sres) {
       if (err) {

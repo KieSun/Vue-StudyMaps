@@ -21,7 +21,7 @@ export default {
     }
   },
   created() {
-    this.pageIndex = parseInt(this.$route.params.page) || 1
+    this.pageIndex = parseInt(this.$store.state.page) || 1
   },
   methods: {
     reducePage() {
@@ -67,6 +67,8 @@ export default {
   box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
   background: #fff;
   font-size: 0;
+  border-bottom: 1px solid #e3e3e3;
+  z-index: 50;
   .button-group {
     .left {
       margin-right: 20px;

@@ -4,7 +4,7 @@
       <navigation></navigation>
     </header>
     <transition name="fade" mode="out-in">
-        <router-view></router-view>
+        <router-view class="view"></router-view>
     </transition>
   </div>
 </template>
@@ -25,10 +25,24 @@ export default {
 
 <style lang="scss" scoped>
 @import './../static/css/app.css';
+
+body {
+  overflow-y: scroll;
+}
+
 header {
   width: 100%;
   height: 70px;
   background: #20A0FF;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+
+.view {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .fade-enter-active, .fade-leave-active {

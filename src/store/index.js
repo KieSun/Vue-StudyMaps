@@ -8,7 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     type: 'raywenderlich',
-    pageIndex: 1
+    page: 1
   },
   getters,
   mutations

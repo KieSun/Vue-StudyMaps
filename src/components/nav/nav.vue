@@ -20,16 +20,23 @@ export default {
         {
           value: 'csstricks',
           label: 'CssTricks'
+        },
+        {
+          value: 'zaoduke',
+          label: '前端早读课'
         }
       ],
-      selected: 'raywenderlich'
+      selected: 'zaoduke'
     }
+  },
+  created() {
+    this.selected = this.$store.state.type
   },
   methods: {
     selectChange() {
       this.$router.push(`/${this.selected}`)
       this.$store.state.type = this.selected
-      this.$store.state.pageIndex = 1
+      this.$store.state.page = 1
     },
     addWebsite() {
       window.open('https://github.com/KieSun/vue-studyMaps')

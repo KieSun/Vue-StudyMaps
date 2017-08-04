@@ -1,7 +1,8 @@
 <template>
   <div class="wrapper">
-    <pageBreak :type="type" :isLoad="isLoad" @changePage="changePage"></pageBreak>
-    <div class="content" :key="page">
+    <progressBar ref="progress"></progressBar>
+    <pageBreak class="pageBreak" :type="type" :isLoad="isLoad" @changePage="changePage"></pageBreak>
+    <div class="content" :key="page" v-show="list.length" ref="content">
       <ul>
         <item v-for="(item, index) in list" :key="index" :item="item"></item>
       </ul>
@@ -13,6 +14,7 @@
 import { getRaywenderlichData } from '../api/api'
 import PageBreak from 'components/pageBreak/pageBreak'
 import Item from 'components/item/item'
+import ProgressBar from 'components/progress/progress'
 export default {
   props: ['type'],
   data() {
@@ -22,21 +24,20 @@ export default {
       page: 1
     }
   },
-  created() {
-    this.getData(this.$store.state.pageIndex)
+  mounted() {
+    this.getData(this.$store.state.page)
   },
   methods: {
     async getData(page = 1) {
       if (this.isLoad) {
         return
       }
-      if (this.$route.params.page) {
-        page = parseInt(this.$route.params.page)
-      }
-      this.$store.state.pageIndex = page
       this.isLoad = true
+      this.$refs.progress.start()
+      this.$refs.content.scrollTop = 0
       this.list = await getRaywenderlichData(this.type, page)
       this.isLoad = false
+      this.$refs.progress.finish()
     },
     openArticle(href) {
       window.open(href)
@@ -48,20 +49,26 @@ export default {
   },
   components: {
     PageBreak,
-    Item
+    Item,
+    ProgressBar
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .wrapper {
-  margin-bottom: 20px;
-  height: 100%;
+  padding-top: 131px;
   .content {
-    width: 800px;
-    height: 100%;
-    margin: 20px auto 0;
-    background: #fff;
+    position: absolute;
+    width: 100%;
+    margin: 30px 0;
+  }
+  .pageBreak {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0;
+    z-index: 100;
   }
 }
 </style>

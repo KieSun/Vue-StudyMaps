@@ -3,7 +3,7 @@
     <h2 class="title" @click="openArticle(item.href)">{{item.title}}</h2>
     <div class="meta">
       <span class="author">{{item.author}}</span>
-      <span class="date">{{item.date}}</span>
+      <span v-show="item.date" class="date">{{item.date}}</span>
     </div>
   </li>
 </template>
@@ -26,6 +26,7 @@ export default {
   font-size: 0;
   padding: 20px 40px;
   box-sizing: border-box;
+  background: #fff;
   .title {
     font-size: 15px;
     color: #34495e;
