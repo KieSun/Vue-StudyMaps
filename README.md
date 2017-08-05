@@ -17,6 +17,23 @@
 🎈 页面相应式框架：element-ui  
 ✏️ 后台：express + superagent + cheerio  
 
+## 项目运行（nodejs 6.0+）
+``` bash
+# 克隆到本地
+git clone https://github.com/bailicangdu/vue2-happyfri.git
+
+# 安装依赖
+npm install
+
+# 开启本地服务器localhost:8088
+npm run dev
+
+# 发布环境
+npm run build
+```
+
+## 项目截图
+![](https://user-gold-cdn.xitu.io/2017/8/5/f4db0e7c26e44894addd06b8b0f1dbe2)
 
 ## ❗️ 勘误
 
