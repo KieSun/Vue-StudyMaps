@@ -22,12 +22,16 @@ export default {
           label: 'CssTricks'
         },
         {
-          value: 'raywenderlich',
-          label: 'Raywenderlich'
-        },
-        {
           value: 'wxyyxc1992',
           label: '某熊的全栈之路'
+        },
+        {
+          value: '75weekly',
+          label: '奇舞周刊'
+        },
+        {
+          value: 'raywenderlich',
+          label: 'Raywenderlich'
         }
       ],
       selected: 'zaoduke'

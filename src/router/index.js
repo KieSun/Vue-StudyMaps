@@ -31,6 +31,10 @@ let router = new Router({
   {
     path: '/wxyyxc1992/:page(\\d+)?',
     component: Lists('wxyyxc1992')
+  },
+  {
+    path: '/75weekly/:page(\\d+)?',
+    component: Lists('75weekly')
   }
   ]
 

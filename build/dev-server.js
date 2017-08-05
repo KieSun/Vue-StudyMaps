@@ -53,9 +53,15 @@ for (let index = 0; index < 10; index++) {
     });
 }
 
-app.get('/api/wxyyxc1992', function (req, res, next) {
-  let page = parseInt(req.query.page - 1) * 20
-  axios.get(`https://zhuanlan.zhihu.com/api/columns/wxyyxc1992/posts?limit=20&offset=${page}`)
+for (let index = 0; index < 10; index++) {
+  let page = index * 20
+  superagent.get(`https://zhuanlan.zhihu.com/api/columns/75weekly/posts?limit=20&offset=${index}`)
+    .end(function (err, sres) {
+    });
+}
+
+function getZhiHuData(type, page, res) {
+  axios.get(`https://zhuanlan.zhihu.com/api/columns/${type}/posts?limit=20&offset=${page}`)
     .then((response) => {
       let items = []
       let data = {
@@ -71,13 +77,21 @@ app.get('/api/wxyyxc1992', function (req, res, next) {
           title: ele.title,
           href: 'https://zhuanlan.zhihu.com' + ele.href,
           author: ele.author.name,
-          date: ''
+          date: ele.publishedTime.toString().match(/(\d{4})-(\d{2})-(\d{2})/)[0] || ''
         })
       })
       res.send(data)
     }).catch((err) => {
       console.log(err)
     })
+}
+
+app.get('/api/wxyyxc1992', function (req, res, next) {
+  getZhiHuData('wxyyxc1992', parseInt(req.query.page - 1) * 20, res)
+});
+
+app.get('/api/75weekly', function (req, res, next) {
+  getZhiHuData('75weekly', parseInt(req.query.page - 1) * 20, res)
 });
 
 app.get('/api/zaoduke', function (req, res, next) {
