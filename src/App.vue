@@ -15,10 +15,6 @@ export default {
   name: 'app',
   components: {
     Navigation
-  },
-  beforeRouteEnter() {
-    console.log('beforeRouteEnter')
-    console.log(this.$route.path)
   }
 }
 </script>

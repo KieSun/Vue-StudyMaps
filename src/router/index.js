@@ -37,7 +37,6 @@ let router = new Router({
     component: Lists('75weekly')
   }
   ]
-
 })
 
 router.beforeEach((to, from, next) => {

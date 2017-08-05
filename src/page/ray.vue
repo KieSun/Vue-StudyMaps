@@ -40,9 +40,7 @@ export default {
       }
       this.isLoad = true
       this.$refs.progress.start()
-      window.document.scrollTop = 0
       let data = await getRaywenderlichData(this.type, page)
-      console.log(data)
       this.list = data.items
       if (!data.hasMore) {
         this.noMore = true
