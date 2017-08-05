@@ -30,4 +30,4 @@
 
 ![](https://www.gnu.org/graphics/gplv3-127x51.png)
 
-Vue-ObjcCN 基于 GPLv3 协议进行分发和使用，更多信息参见协议文件。
+Vue-StudyMaps 基于 GPLv3 协议进行分发和使用，更多信息参见协议文件。
