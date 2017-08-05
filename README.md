@@ -8,6 +8,8 @@
 
 如果大家有任何好的网站，可以回复在这个 [Issus](https://github.com/KieSun/vue-studyMaps/issues/1) 中
 
+关于该项目的[博客](https://juejin.im/post/59857c616fb9a03c5c6ffa91)
+
 
 ## 技术栈和主要框架
 
